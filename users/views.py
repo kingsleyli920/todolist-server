@@ -16,10 +16,14 @@ class UsersSignUp(APIView):
             'success': True,
             'data': data
         }
-        return Response(res)
+        resp = Response(res)
+        resp['Access-Control-Allow-Origin'] = '*'
+        return resp
 
     def post(self, request):
+        print 'post'
         data = json.loads(request.body)
+        print data
         data['id'] = uuid.uuid1()
         data['registered_time'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         Users.objects.create(**data)

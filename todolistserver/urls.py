@@ -16,8 +16,9 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from server import views as server_views
-
+from todolistserver.views import index
 urlpatterns = [
+    url(r'^$', index,name="index"),
     url(r'^admin/', admin.site.urls),
     url(r'^users/', include('users.urls')),
     url(r'^items/', include('todoitems.urls'))

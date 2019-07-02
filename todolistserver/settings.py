@@ -50,7 +50,7 @@ MIDDLEWARE_CLASSES = [
     # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'todolistserver.urls'
@@ -80,10 +80,12 @@ WSGI_APPLICATION = 'todolistserver.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'todolistdb',
+        # 'NAME': 'todolistdb',
+        'NAME': 'mytodolistdb',
         'USER': 'postgres',
         'PASSWORD': '3007lzm.',
-        'HOST': '127.0.0.1',
+        # 'HOST': '127.0.0.1',
+        'HOST': 'mytodolistdb.cuv98atucyfu.us-west-1.rds.amazonaws.com',
         'PORT': '5432',
     }
 }
@@ -122,20 +124,27 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'todolistserver/static')
+
+]
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_WHITELIST = ('http://localhost:3000')
-CORS_ALLOW_METHODS = (
-    'GET',
-    'POST',
+CORS_ORIGIN_WHITELIST = ['http://127.0.0.1:8000',
+                         'http://127.0.0.1:3000',
+                         'http://TodolistServer-env.x2h3vi8wiq.us-west-1.elasticbeanstalk.com']
+CORS_ALLOW_METHODS = [
     'DELETE',
+    'GET',
     'OPTIONS',
     'PATCH',
+    'POST',
     'PUT',
-    'VIEW'
-)
-CORS_ALLOW_HEADERS = (
+]
+CORS_ALLOW_HEADERS = [
     'accept',
     'accept-encoding',
     'authorization',
@@ -145,4 +154,4 @@ CORS_ALLOW_HEADERS = (
     'user-agent',
     'x-csrftoken',
     'x-requested-with',
-)
+]
